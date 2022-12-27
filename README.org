@@ -1,5 +1,4 @@
 #+TITLE: Mathematics
 #+AUTHOR: Bogdan Pricope
 
-* Introduction
 This booklet started as an ambitious personal project where I wanted to compile all mathematical knowledge I have gathered since college.
