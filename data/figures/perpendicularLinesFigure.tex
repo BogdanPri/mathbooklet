@@ -1,0 +1,22 @@
+\documentclass[tikz]{standalone}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[%
+        xlabel=$x$, ylabel=$y$, legend pos= outer north east,
+        grid=both, xmin=-5.5, xmax=5.5, ymin=-5.5, ymax=5.5,
+        axis lines = middle,
+        minor x tick num=1, minor y tick num=1,
+        xlabel style = {at={(axis description cs:1.01,0.5)},anchor=west},
+        ylabel style = {at={(axis description cs:0.5,1.01)},anchor=south},
+    ]
+    \addplot+[blue, very thick, mark=none, domain=-5.5:5.5] plot {2*x-1};
+    \addlegendentry{$f(x)=2x-1$}
+    \addplot+[red, very thick, mark=none, domain=-5.5:5.5] plot {-.5*x-1};
+    \addlegendentry{$f(x)=-\frac{1}{2}x-1$}
+    \draw[black, fill=black] (0,-1) circle [radius=.5mm] node[%
+        right,yshift=2.5pt, xshift=2.5pt,
+    ]{\small $(0,\!-1)$};
+    \end{axis}
+\end{tikzpicture}
+\end{document}

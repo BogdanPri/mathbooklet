@@ -1,0 +1,20 @@
+\documentclass[tikz]{standalone}
+
+\begin{document}
+\begin{tikzpicture}
+    \draw (-2,-1.5) rectangle (2,1.5) node[right]{\(\mathscr{U}\)};
+    \draw (0.5,0) circle[radius=0.85];
+    \draw (-0.5,0) circle[radius=0.85];
+    \draw (-1.26,0.7) node{\(A\)};
+    \draw (1.26,0.7) node{\(B\)};
+    \filldraw[
+        radius=3cm,
+        even odd rule,
+        pattern={Lines[angle=45,distance=5pt]},
+        pattern color=gray,
+    ]
+        (0.5,0) circle[radius=0.85]
+        (-0.5,0) circle[radius=0.85]
+    ;
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,19 @@
+\documentclass[tikz]{standalone}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[%
+        xlabel=$x$, ylabel=$y$, legend pos=south east,
+        grid=both, xmin=-5.5, xmax=5.5, ymin=-5.5, ymax=5.5,
+        axis lines = middle,
+        minor x tick num=1, minor y tick num=1,
+        xlabel style = {at={(axis description cs:1.01,0.5)},anchor=west},
+        ylabel style = {at={(axis description cs:0.5,1.01)},anchor=south},
+    ]
+    \addplot+[blue, very thick, mark=none] plot {2*x};
+    \addlegendentry{$y=2x$}
+    \draw[thick] (1,2) -| (2,4) node[pos=0.25, below]{$\Delta x$}
+        node[pos=0.75, right]{$\Delta y$};
+    \end{axis}
+\end{tikzpicture}
+\end{document}

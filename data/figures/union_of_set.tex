@@ -1,0 +1,11 @@
+\documentclass[tikz]{standalone}
+
+\begin{document}
+\begin{tikzpicture}
+    \draw (-2,-1.5) rectangle (2,1.5) node[right]{\(\mathscr{U}\)};
+    \draw[pattern={Lines[angle=45,distance=5pt]}, pattern color=gray] (0.5,0) circle[radius=0.85];
+    \draw[pattern={Lines[angle=45,distance=5pt]}, pattern color=gray] (-0.5,0) circle[radius=0.85];
+    \draw (-1.26,0.7) node{\(A\)};
+    \draw (1.26,0.7) node{\(B\)};
+\end{tikzpicture}
+\end{document}

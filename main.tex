@@ -1,0 +1,2147 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% -------------------------------------------------------------------------------------------------------- %
+
+\documentclass[a5paper,9pt]{book}
+
+\title{Mathematics}
+\author{Bogdan Pricope}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[%
+    top = 1in,
+    bottom = 0.875in,
+    inner = 0.875in,
+    outer = 0.625in
+]{geometry}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage[british]{babel}
+\usepackage{titling, titlesec}
+\usepackage{multirow}
+\usepackage{xcolor, colortbl}
+% \usepackage{lscape}
+% \usepackage{hhline}
+% \usepackage{csquotes}
+% \usepackage{esint}
+% \usepackage{newtxtext, newtxmath}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{tikz}
+\usepackage{standalone}
+\usepackage{centernot}
+\usepackage[makeroom]{cancel}
+\usepackage{soul}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+
+\usepackage[
+    labelfont=bf,
+    format=hang,
+%    justification=raggedright
+]{caption}
+
+\usepackage{threeparttable}
+% \usepackage{xwatermark}
+% \usepackage{arcs}
+% \usepackage{etoolbox}
+% \usepackage{mathrsfs}
+% \usepackage{mathtools}
+\usepackage{calc}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage[Rejne]{fncychap}
+\usepackage{bold-extra}
+\usepackage[dotinlabels]{titletoc}
+\usepackage{lipsum}
+\usepackage{siunitx}
+\usepackage{epigraph}
+\usepackage{subcaption}
+\usepackage{xhfill}
+\usepackage{stix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Preamble configuration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ------------------------------------------------- TikZ ------------------------------------------------- %
+
+\pgfplotsset{compat=1.16}
+
+\usetikzlibrary{%
+    calc,
+    patterns,
+    patterns.meta,
+    arrows,
+    arrows.meta,
+    positioning,
+    shapes.misc,
+    math,
+    external,
+}
+
+\tikzset{>=Latex}
+
+% --% ----------------------------------------------- Hyperref ----------------------------------------------- %
+
+\hypersetup{%
+    colorlinks=true, % This allows the use of coloured links.
+    allcolors=black, % This sets all links to black.
+    urlcolor=blue % This sets URLs to blue.
+}
+
+% ------------------------------------------------ Amsthm ------------------------------------------------ %
+
+\newtheorem{thm}{Theorem}
+\newtheorem{pos}{Postulate}
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\renewcommand{\qedsymbol}{Q.E.D.}
+
+% ----------------------------------------------- Fancyhdr ----------------------------------------------- %
+
+\pagestyle{empty}
+
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside\ifodd\c@page\else%
+\hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+% ------------------------------------------ Paragraph settings ------------------------------------------ %
+
+\setlength{\parindent}{0.25in}
+% \tolerance=1
+% \emergencystretch=10pt
+% \hyphenpenalty=100
+% \hbadness=100
+
+% \setcounter{tocdepth}{1}
+
+% ----------------------------------------------- SiUnitX ----------------------------------------------- %
+
+\sisetup{%
+    tight-spacing=true,
+    inter-unit-product = \ensuremath{{}\!\cdot\!{}}
+}
+
+% ----------------------------------------------- Titling ----------------------------------------------- %
+
+\renewcommand{\maketitle}{%
+    \begin{titlepage}
+        \begin{center}
+            \vspace*{\fill}
+
+            {\Huge\textbf{Mathematics}}
+
+            \vspace*{3\bigskipamount}
+
+            {\LARGE Bogdan Pricope}
+
+            \vspace*{1.25\bigskipamount}
+
+            {\large\today}
+
+            \vspace*{\fill}
+        \end{center}
+    \end{titlepage}
+}%
+
+% --------------------------------- Table of contents --------------------------------- %
+
+% \titlecontents{chapter} [6pc]
+%     {\addvspace{1pc}\bfseries
+%     \titlerule[2pt]\filright}
+%     {\contentslabel%
+%         [\textsc{\chaptername}\
+%         \thecontentslabel]{6pc}}
+%     {}{\hfill\contentspage}
+%     [\addvspace{2pt}]
+%     \setcounter{tocdepth}{1}
+
+% ----------------------------------- Fancyhdr ------------------------------------ %
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\fancyhead{}
+\fancyhead[R]{{\bfseries\leftmark}}
+\fancyhead[L]{{\bfseries\textsc{\chaptername}\ \thechapter}}
+
+% ---------------------------------- titlesec ------------------------------------- %
+
+\titleformat{\section}
+{\large\bfseries}
+{\thesection}
+{15pt}
+{}[\titlerule]
+
+\titleformat{\subsection}
+{\normalsize\bfseries}
+{\thesubsection}
+{15pt}
+{}
+
+
+% ------------------------------------------------ Caption ------------------------------------------------ %
+
+\captionsetup[table]{
+    labelsep=colon,
+    justification=raggedright,
+    singlelinecheck=off,
+    skip=0.25\baselineskip,
+}
+
+% --------------------------------- New commands --------------------------------- %
+
+\newcommand{\txtlinesur}[1]{% This function surrounds text with equally spaced \hrule.
+    \vspace*{\baselineskip}
+
+    \hrule%
+
+    \vspace*{\medskipamount}
+
+    #1
+
+    \vspace*{\medskipamount}
+
+    \hrule%
+
+    \vspace*{\baselineskip}
+}
+
+\newcommand{\eqlinesur}[1]{% This function surrounds equations with equally spaced \hrule.
+    \vspace*{\baselineskip}
+
+    \hrule%
+
+    \vspace*{\medskipamount}
+
+    #1
+
+    \vspace*{\medskipamount-0.5\belowdisplayskip}
+
+    \hrule%
+
+    \vspace*{\baselineskip}
+}
+
+\newcommand{\nomlinesur}[2]{% This function surrounds theorems with equally spaced \hrule.
+    \vspace*{\baselineskip}
+
+    \hrule%
+
+    \vspace*{\medskipamount}
+
+    #1
+
+    \vspace*{\medskipamount}
+
+    \hrule%
+
+    \vspace*{\medskipamount}
+    
+    #2
+
+    \vspace*{\medskipamount}
+
+    \hrule
+
+    \vspace*{\baselineskip}
+}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\cc}{\!\cdot\!}
+\newcommand{\xx}{\!\times\!}
+\newcommand{\Rarr}{\Rightarrow}
+\newcommand{\D}{\Delta}
+\newcommand{\mm}[1]{\mathrm{#1}}
+
+\newcommand{\fig}[2]{%
+    \hyperref[#2]{#1~\ref*{#2}}%
+}
+
+\newcommand{\qq}[2]{%
+    \begin{center}
+
+        \begin{minipage}{0.75\textwidth}
+
+          \hrulefill\hspace{2.5mm}\textbf{#2}\hspace{2.5mm}\hrulefill\medskip
+
+          \hspace*{\fill}{\Large\textbf{``}}\hspace*{\fill} \\
+          #1 \\[\baselineskip]
+          \hspace*{\fill}{\Large\textbf{''}}\hspace*{\fill}
+
+          \smallskip\hrule
+
+        \end{minipage}
+
+    \end{center}
+}
+
+\newcommand{\mhl}[1]{\colorbox{yellow}{\(\displaystyle #1\)}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+    \maketitle
+
+    \phantomsection%
+    \tableofcontents%
+    \listoffigures%
+    \listoftables%
+    \newpage
+
+    \chapter*{Introduction}
+    \phantomsection\addcontentsline{toc}{chapter}{Introduction}
+
+        This booklet started as a fun project in the middle of the 2020 lock down with
+        the purpose of containing everything I've learned so far in the subject of mathematics.
+        Although this booklet contains the notes I've made while studying, I am not the
+        author of the content, as it was gathered from a variety of different sources.
+        Therefore, the sole purpose of this material is to aid other students in this
+        subject free of charge and thus it can be used as desired.
+
+    \newpage
+
+    \pagestyle{fancy}
+
+%     \chapter{Introduction}%
+%         \label{chap:introduction}
+%         \newpage
+
+    \chapter{Mathematical Operations}%
+        \label{chap:mathematical_operations}
+        \qq{Pure mathematics is, in its way, the poetry of logical ideas.}
+        {Albert Einstein}
+        \newpage
+
+        \section{Fundamental Operations}%
+            \label{sec:fundamental_operations}
+
+%             \subsection{Terminology}
+% 
+%             \subsubsection{Addition}
+% 
+%             \nomlinesur{%
+%                 \begin{equation*}
+%                     a + b = c
+%                 \end{equation*}
+% 
+%                 \vspace*{-0.5\belowdisplayskip}
+%             }{%
+%                 \begin{tabbing}
+%                     $a$ \hspace{15pt}\=  \\
+%                     $b$ \> \\
+%                     $c$ \> sum
+%                 \end{tabbing}
+%             }
+% 
+%             \subsubsection{Subtraction}
+% 
+%             \nomlinesur{%
+%                 \begin{equation*}
+%                     a - b = c
+%                 \end{equation*}
+% 
+%                 \vspace*{-0.5\belowdisplayskip}
+%             }{%
+%                 \begin{tabbing}
+%                     $a$ \hspace{15pt}\=  \\
+%                     $b$ \> \\
+%                     $c$ \> Difference
+%                 \end{tabbing}
+%             }
+% 
+%             \subsubsection{Multiplication}
+% 
+%             \nomlinesur{%
+%                 \begin{equation*}
+%                     a \times b = c
+%                 \end{equation*}
+% 
+%                 \vspace*{-0.5\belowdisplayskip}
+%             }{%
+%                 \begin{tabbing}
+%                     $a$ \hspace{15pt}\= multiplier \\
+%                     $b$ \> multiplicand \\
+%                     $c$ \> product
+%                 \end{tabbing}
+%             }
+% 
+%             \subsubsection{Division}
+% 
+%             \nomlinesur{%
+%                 \begin{equation*}
+%                     a \div b = c
+%                 \end{equation*}
+% 
+%                 \vspace*{-0.5\belowdisplayskip}
+%             }{%
+%                 \begin{tabbing}
+%                     $a$ \hspace{15pt}\= dividend \\
+%                     $b$ \> divisor \\
+%                     $c$ \> quotient
+%                 \end{tabbing}
+%             }
+% 
+%             \subsubsection{Raising to a Power}
+% 
+%             \nomlinesur{%
+%                 \begin{equation*}
+%                     a^b = c
+%                 \end{equation*}
+% 
+%                 \vspace*{-0.5\belowdisplayskip}
+%             }{%
+%                 \begin{tabbing}
+%                     $a$ \hspace{15pt}\= base \\
+%                     $b$ \> exponent \\
+%                     $c$ \> result
+%                 \end{tabbing}
+%             }
+% 
+%             \subsubsection{Taking the n\textsuperscript{th} Root}
+% 
+%             \nomlinesur{%
+%                 \begin{equation*}
+%                     \sqrt[a]{b} = c
+%                 \end{equation*}
+% 
+%                 \vspace*{-0.5\belowdisplayskip}
+%             }{%
+%                 \begin{tabbing}
+%                     $a$ \hspace{20pt}\= root \\
+%                     $b$ \> \\
+%                     $c$ \> result
+%                 \end{tabbing}
+%             }
+
+            \subsection{Addition and Subtraction}
+
+                Addition is a \emph{commutative} operation; this means that the order
+                of terms does not matter.
+
+                \begin{equation*}
+                    a + b = b + a
+                \end{equation*}
+
+                Addition is also an \emph{associative} operation, meaning that when adding
+                three or more numbers, the order in which they are added does not matter,
+                producing the same result.
+
+                \begin{equation*}
+                    a + (b + c) = (a + b) + c
+                \end{equation*}
+
+                Another property of addition is \emph{distributivity}, meaning that if
+                a number is multiplied by a sum of two other numbers, the same result is
+                given by the addition of those two numbers, each being multiplied by the
+                first number.
+
+                \begin{equation*}
+                    a(b + c) = ab + ac
+                \end{equation*}
+
+                Subtraction, however, is \emph{not commutative} and changing the order of the
+                terms will result in a different value.
+
+                \begin{equation*}
+                    a - b \neq b - a
+                \end{equation*}
+
+                Also, subtraction is not an \emph{associative} operation as addition is.
+
+                \begin{equation*}
+                    a-(b-c) \neq (a-b)-c
+                \end{equation*}
+
+                However, subtraction is a \emph{distributive} operation.
+
+                \begin{equation*}
+                    a(b-c) = ab - ac
+                \end{equation*}
+
+                When adding or subtracting algebraic terms, if those therms are of different
+                kind, they cannot be simplified. 
+
+                \begin{align*}
+                    a + b &= a + b & a + a &= 2a \\
+                    a + a - b &= 2a - b & b + a - b &= a
+                \end{align*}
+
+            \subsection{Multiplication and Division}
+
+                Multiplication represents a repeated addition while division represents
+                a repeated subtraction. When it comes to the order of operations, multiplication
+                and division are preformed before addition and subtraction.
+
+                \eqlinesur{\begin{equation*}
+                    a\times b = \underset{a}{\underbrace{b + b + \cdots + b}}
+                \end{equation*}}
+
+                \paragraph{Example:}
+
+                \begin{equation*}
+                    3\times 5 = 5 + 5 + 5 = 15\\ [5pt]
+                \end{equation*}
+
+                When it comes to division, the divisor (the term that the dividend is divided by)
+                is subtracted from the dividend until it reaches zero and the result is given
+                by the number of times the divisor was subtracted from the dividend.
+
+                \eqlinesur{\begin{equation*}
+                        a\div b = \overset{a\,-\,nb\,=\,0}{\overbrace{a - \underset{n}{\underbrace{b - b - \cdots - b}}}} = n
+                \end{equation*}}
+
+                \paragraph{Example:}
+
+                \begin{align*}
+                    6 \div 2 = \overset{6\,-\,3\,\xx\,2\,=\,0}{\overbrace{6 - \underset{3}{\underbrace{2 - 2 - 2}}}} = 3
+                \end{align*}
+
+                When multiplying or dividing two terms with the same signs, the result
+                will be a positive term; when multiplying or dividing two terms with
+                different signs, however, the result will have be a negative term.
+
+                \txtlinesur{\begin{align*}
+                        a\times b = ab \qquad&\text{ and }\qquad (-a)(-b) = ab\\
+                        a(-b) = -ab \qquad&\text{ and }\qquad (-a)(b) = - ab
+                \end{align*}}
+
+                \pagebreak
+
+%                 \begin{table}
+%                     \centering
+%                     \begin{threeparttable}
+%                         \caption{Sign rules for multiplication and division}\label{tab:sign_rule_multiplication_division}
+%                         \begin{tabular}{ccc}
+%                             \toprule
+%                             \hspace{15.5pt}\textbf{Term 1}\hspace{15.5pt} & \hspace{15.5pt}\textbf{Term 2}\hspace{15.5pt} & \hspace{15.5pt}\textbf{Result}\hspace{15.5pt} \\
+%                             \midrule
+%                             $+$ & $+$ & $+$ \\
+%                             $-$ & $-$ & $+$ \\
+%                             $+$ & $-$ & $-$ \\
+%                             $-$ & $+$ & $-$ \\
+%                             \bottomrule
+%                         \end{tabular}
+%                     \end{threeparttable}
+%                 \end{table}
+
+                Like addition, multiplication is a \emph{commutative}, \emph{associative}
+                and \emph{distributive} operation.
+
+                \begin{gather*}
+                    ab = ba \\[5pt]
+                    a(bc) = (ab)c \\[5pt]
+                    a(b+c) = ab + ac \\
+                \end{gather*}
+
+                Division is not a \emph{commutative} or an \emph{associative} operation
+                but is, however, \emph{distributive} only if the sum is divided by a number
+                and not the other way around.
+
+                \begin{gather*}
+                    a\div b \neq b\div a \\[5pt]
+                    a\div(b\div c) \neq (a\div b)\div c \\[5pt]
+                    (a + b)\div c = a\div c + a\div b \\[5pt]
+                    c\div (a+b) \neq c\div a + c\div b \\
+                \end{gather*}
+
+                \paragraph{Multiplication and Division Facts}
+
+                Any number multiplied by one and any number divided by one will result
+                in itself.
+
+                \txtlinesur{%
+                    \begin{equation*}
+                        1\times a = a \qquad\text{ and }\qquad a\div 1 = a
+                    \end{equation*}
+                }
+
+                Any number multiplied by zero and zero divided by any number will result
+                in zero.
+
+                \txtlinesur{%
+                    \begin{equation*}
+                        0\times a = 0 \qquad\text{ and }\qquad 0\div a = 0
+                    \end{equation*}
+                }
+
+                \pagebreak
+
+                Any number divided by zero is \emph{undefined}.
+
+                \txtlinesur{%
+                    \begin{equation*}
+                        a\div 0 = \text{undefined}
+                    \end{equation*}
+                }
+
+                Any number divided by itself is one.
+
+                \txtlinesur{%
+                    \begin{equation*}
+                        a\div a = 1
+                    \end{equation*}
+                }
+
+                A \emph{reminder} is a number that is left over from a division where
+                the divisor did not fully fit into the dividend. For $a\div b = c \text{ remainder } r$.
+
+                \txtlinesur{
+                    \begin{equation*}
+                        c = ab + r
+                    \end{equation*}
+                }
+
+                A mathematical operation between two numbers which has as a result 
+                a remainder is knows as \emph{modulo}.
+
+                \subsection{Indices and Radicals}
+
+                Just as multiplication is a repeated addition, raising to a power is a
+                repeated multiplication, with the index being the amount of times a number
+                is multiplied by itself.
+
+                \eqlinesur{%
+                    \begin{equation*}
+                        a^b = \underset{b}{\underbrace{a\times a\times\cdots\times a}}
+                    \end{equation*}
+                }
+
+                A radical is the reverse operation to power raising, with the root being
+                the number of times a number has to be multiplied by itself in order to
+                give the number under the radical. The $n$\textsuperscript{th} root radical
+                of a number $a$ is written as $\sqrt[n]{a}$ and if the root is not specified,
+                then it is a square root $\left(\text{i.e.\ }\sqrt{a} = \sqrt[2]{a}\right)$.
+
+                \pagebreak
+
+                \vspace*{-\baselineskip}
+
+                \txtlinesur{%
+                    \begin{equation*}
+                        \sqrt[n]{a} = b \quad\because\quad b^n = a
+                    \end{equation*}
+                }
+                
+                Note that raising to a power and taking the $n$\textsuperscript{th} root is preformed
+                before multiplication and division which is preformed before addition and
+                subtraction. Also note that there are two results if $n$ is an even number
+                $\left(\text{i.e.\ }\sqrt[2n]{a} = \pm b\right.$ $\left.\because\; (-b)^{2n}=b^{2n}\right)$.
+
+                \subsubsection{Index Rules:}
+
+                \eqlinesur{%
+                    \begin{align*}
+                        0^n &= 0 & 1^n &= 1 & a^0 &= 1\\[7.5pt]
+                        a^n\times a^m &= a^{n+m} & a^n\div a^m &= a^{n-m} & {\left(a^n\right)}^m &= a^{nm} \\[7.5pt]
+                        a^1 &= a & a^{-n} &= \frac{1}{a^n} & \frac{1}{a^{-n}} &= a^n
+                    \end{align*}
+                }
+
+                \subsubsection{Radical Rules:}
+
+                \eqlinesur{%
+                    \begin{align*}
+                        {\left(\sqrt[n]{a}\right)}^n &= a & {\left(\sqrt[n]{a}\right)}^m &= \sqrt[n]{a^m} & \sqrt[\uproot{1}n\cdot p]{a^{m\cdot p}} &= \sqrt[n]{a^m} \\[7.5pt]
+                        a\strut^{\hspace{-1pt}\frac{n}{m}} &= \sqrt[m]{a^n} & \sqrt[m]{a^n} &= \sqrt[\leftroot{-2}\uproot{5}{\frac{m}{n}}]{a} & \sqrt[n]{ab} &= \sqrt[n]{a}\sqrt[n]{b}\\[7.5pt]
+                        \sqrt[n]{\sqrt[m]{a}} &= \sqrt[nm]{a} & \sqrt[n]{\frac{a}{b}} &= \frac{\sqrt[n]{a}}{\sqrt[n]{b}} & \frac{\sqrt[n]{a}}{\sqrt[m]{b}} &= \sqrt[nm]{\frac{a^m}{b^n}}
+                    \end{align*}
+                }
+
+                \subsection{Mathematical Operations with Rational Numbers}
+
+                A \emph{rational number} is any number that is a fraction of another
+                whole number, such as $\frac{3}{4}$ (three quarters). The fraction line
+                represents division as $\frac{3}{4}$ is the same as $3\div 4$. The top
+                part of a fraction is known as the \emph{numerator} while the bottom
+                part is known as the \emph{denominator}. When the numerator is greater
+                than the denominator, the fraction can be represented in terms of a whole
+                number and a fraction, such as \emph{one and a half}, which is the equivalent of
+                \emph{three halves} $\left(\text{i.e.\ }\frac{3}{2} = 1\frac{1}{2}\right)$.
+
+                \paragraph{For example:} if $a\div b = c \text{ remainder } r$:
+
+                \eqlinesur{%
+                    \begin{equation*}
+                        \frac{a}{b} = c\,\frac{r}{b}
+                    \end{equation*}
+                }
+
+                When multiplying a fraction by a number, only the numerator is multiplied
+                by that number.
+
+                \eqlinesur{%
+                    \begin{equation*}
+                        a \times \frac{b}{c} = \frac{ab}{c}
+                    \end{equation*}
+                }
+
+                When dividing a fraction by a number, only the denominator is multiplied by
+                that number.
+
+                \eqlinesur{%
+                    \begin{equation*}
+                        \frac{a}{b}\div c = \frac{a}{bc}
+                    \end{equation*}
+                }
+
+                When multiplying two fractions together, the numerators are multiplied
+                with each other and the denominators are also multiplied with each other.
+
+                \eqlinesur{%
+                    \begin{equation*}
+                        \frac{a}{b}\times \frac{c}{d} = \frac{ac}{bd}
+                    \end{equation*}
+                }
+
+                \pagebreak
+
+                When dividing two fractions, the divisor fraction is flipped so that the
+                numerator becomes the denominator and vice-versa (this is know as the reciprocal)
+                and then they are multiplied together.
+
+                \eqlinesur{%
+                    \begin{equation*}
+                        \frac{a}{b}\div\frac{c}{d} = \frac{a}{b}\times\frac{d}{c} = \frac{ad}{bc}
+                    \end{equation*}
+                }
+
+                The addition and subtraction of fractions is a little more difficult
+                than multiplication and division is. This is because in order to add or
+                subtract two fractions, they must have the same denominator, which can be
+                achieved through amplification, which is the multiplication of both numerator
+                and denominator by the same number, being the equivalent of multiplying
+                that fraction by one.
+
+                \eqlinesur{%
+                    \begin{equation*}
+                        \frac{a}{b} \pm \frac{c}{d} = \frac{ad}{bd} \pm \frac{bc}{bd} = \frac{ad \pm bc}{bd}
+                    \end{equation*}
+                }
+
+                The addition and subtraction of a fraction with a number is treated the
+                same as in the case above as any number $a$ can be represented as $\frac{a}{1}$.
+
+                \eqlinesur{%
+                    \begin{equation*}
+                        \frac{a}{b} \pm c = \frac{a}{b} \pm \frac{bc}{b} = \frac{a\pm bc}{b}
+                    \end{equation*}
+                }
+
+                When raising a fraction to any power, the operation is performed on both
+                the numerator and the denominator.
+
+                \eqlinesur{%
+                    \begin{equation*}
+                        {\left(\frac{a}{b}\right)}^{\hspace{-1pt}n} = \frac{a^n}{b^n}
+                    \end{equation*}
+                }
+
+                When taking the $n$\textsuperscript{th} root of a fraction, the operation
+                is performed in the same manner as raising it to a power.
+
+                \eqlinesur{%
+                    \begin{equation*}
+                        \sqrt[n]{\frac{a}{b}} = \frac{\sqrt[n]{a}}{\sqrt[n]{b}}
+                    \end{equation*}
+                }
+
+                \pagebreak
+
+            \section{Advanced Mathematical Operations}%
+                \label{sec:advanced_mathematical_operations}
+
+                \subsection{Summation}
+
+                \emph{Summation} is a complex mathematical operation which computes repeated
+                additions with complex terms under certain conditions, where each term
+                `$n$' starts at an initial value `$a$' and is incremented by one until it 
+                equals its final value `$b$'. The symbol for summation is the Greek capital
+                letter \emph{sigma} ($\Sigma$).
+
+                \nomlinesur{%
+                    \begin{equation*}
+                        \sum_{n=a}^{b} n = a + (a+1) + (a+2) + \cdots + b
+                    \end{equation*}
+                }{%
+                    \begin{tabbing}
+                        $a$ \hspace{25pt}\= initial value of $n$ \\
+                        $b$ \> final value of $n$ \\
+                        $n$ \> the expression to be computed
+                    \end{tabbing}
+                }
+
+                \paragraph{Example:}
+
+                \begin{align*}
+                    x = \sum_{n=1}^{5} n \Rarr x &= 1 + 2 + 3 + 4 + 5 \\
+                    x &= 15
+                \end{align*}
+
+                \begin{align*}
+                    x = \sum_{n=0}^{3} 2^n \Rarr x &= 2^0 + 2^1 + 2^2 + 2^3 \\
+                    x &= 1 + 2 + 4 + 8 \\
+                    x &= 15
+                \end{align*}
+
+                \begin{align*}
+                    x = \sum_{i=1}^{5}(2i - 1) \Rarr x &= 1 + 3 + 5 + 7 + 9 \\
+                    x &= 25
+                \end{align*}
+
+                \pagebreak
+
+            \subsection{Product}
+
+            The \emph{product} operation works in the same way as summation does, with
+            the exception of the terms being multiplied instead of added. The symbol for
+            product is the Greek capital letter \emph{pi} $\left(\Pi\right)$.
+
+            \eqlinesur{%
+                \begin{equation*}
+                    \prod_{n=a}^{b} n = a(a+1)(a+2)\times\cdots\times b
+                \end{equation*}
+            }
+
+            \paragraph{Example:}
+
+            \begin{align*}
+                x = \prod_{n=1}^{5} n \Rarr x &= 1\times 2 \times 3 \times 4 \times 5 \\
+                x &= 120
+            \end{align*}
+
+            \subsection{Limits}
+
+            A \emph{limit} is a mathematical operation which is used in order to evaluate
+            an expression where a term gets infinitely close to a certain value without
+            actually being equal to that value. For example, an expression such as $\frac{1}{0}$
+            cannot be evaluated and is therefore undefined; by using a limit, the behaviour
+            of this expression can be observed as the denominator approaches zero from 
+            a certain direction.
+
+            \eqlinesur{%
+                \begin{equation*}
+                    \lim_{n\rightarrow a} n = a
+                \end{equation*}
+            }
+
+            \vspace{-\baselineskip}
+
+            \paragraph{Example:}
+
+            \begin{align*}
+                \lim_{n\rightarrow 0} \frac{1}{n} &\Longrightarrow \frac{1}{1} = 1 \Longrightarrow \frac{1}{0.1} = 10
+                \Longrightarrow \frac{1}{0.01} = 100 \Longrightarrow \frac{1}{0.001} = 1000
+            \end{align*}
+
+            The example above shows that as $n$ approaches zero, the result keeps getting
+            bigger, thus the result to the expression being \emph{infinity}.
+
+            \begin{equation*}
+                \therefore \lim_{n\rightarrow 0} \frac{1}{n} = \infty
+            \end{equation*}
+
+            \pagebreak
+
+            \subsection{Factorial}
+
+            The \emph{factorial} function repeatedly multiplies a natural number with
+            every natural number between one and itself. The symbol for this function
+            is the exclamation mark `!' after the number.
+
+            \txtlinesur{%
+                \begin{equation*}
+                    a! = 1\times 2 \times 3 \times \cdots \times (a-1) \times a
+                \end{equation*}
+            }
+
+            By definition, the factorial of zero equals one.
+
+            \txtlinesur{%
+                \begin{equation*}
+                    0! = 1
+                \end{equation*}
+            }
+
+            Therefore, for numbers greater or equal to one, the factorial function can
+            be defined as:
+
+            \eqlinesur{%
+                \begin{equation*}
+                    a! = \prod_{n=1}^{a}n
+                \end{equation*}
+            }
+
+            \paragraph{Example:}
+            
+            \begin{gather*}
+                1! = 1 \\[5pt]
+                2! = 1\times 2 = 2 \\[5pt]
+                5! = 1\times 2 \times 3 \times 4\times 5 = 120 \\[5pt]
+                10! = 1 \times 2 \times 3 \times \cdots \times 8 \times 9 \times 10 = \num{3628800} \\
+            \end{gather*}
+
+            Note that the factorial function does not work with rational or decimal numbers,
+            nor does it work with negative numbers.
+
+            \pagebreak
+
+            \subsection{Modulo}
+
+            The \emph{modulo} operation performs a division between two numbers and it
+            returns the remainder as a result.  If $a\div b = c \text{ remainder } r$:
+
+            \txtlinesur{%
+                \begin{equation*}
+                    a\bmod{b} = r
+                \end{equation*}
+            }
+
+            \subsubsection{Rules:}
+
+            \nomlinesur{%
+                \begin{equation*}
+                    \text{If}\qquad a\div b = c\text{ rem } r\qquad \text{ then }\qquad a = cb + r
+                \end{equation*}
+
+                \vspace*{-0.5\belowdisplayskip}
+            }{%
+                \vspace*{-0.5\abovedisplayskip}
+                
+                \begin{equation*}
+                    a, b \neq 0 \qquad\text{ and }\qquad 0 \leq r < |\,b\,|
+                \end{equation*}
+
+                \vspace*{-0.5\belowdisplayskip}
+            }
+
+            \paragraph{Example:}
+
+            \begin{align*}
+                &13 \div 6 = 2 & -&16\div 5 = -4 \\[-5pt]
+                &\underline{12} & -&\underline{20} \\[-5pt]
+                &\phantom{0}1 \text{ (remainder)} & &\phantom{0}4 \text{ (remainder)} \\[5pt]
+                &\therefore 13\bmod{6} = 1 & &\therefore -16\bmod{5} = 4 \\[25pt]
+                 &18\div -7 = -2 & -&15\div -6 = 3 \\[-5pt]
+                 &\underline{14} & -&\underline{18} \\[-5pt]
+                 &\phantom{0}4 \text{ (remainder)} & &\phantom{0}3 \text{ (remainder)} \\[5pt]
+                 &\therefore 18\bmod{(-7)} = 4 & &\therefore -15\bmod{(-6)} = 3 \\
+            \end{align*}
+
+            Note that: $\;a\bmod{b} = a\bmod{(-b)}$.
+
+            \pagebreak
+
+            \subsection{Absolute Value}
+
+            The absolute value of a number gives the magnitude of that number, regardless
+            of its direction (sign).
+
+            \txtlinesur{%
+                \begin{equation*}
+                    |\pm a\,| = a
+                \end{equation*}
+            }
+
+            \paragraph{Example:}
+
+            \begin{align*}
+                |\,5\,| = 5 \qquad\text{ and }\qquad |-3\,| = 3 \\
+            \end{align*}
+
+%             The function can also be defined as:
+% 
+%             \txtlinesur{%
+%                 \begin{equation*}
+%                     |\,a\,| = \sqrt{a^2}
+%                 \end{equation*}
+%             }
+% 
+%             \paragraph{Example:}
+% 
+%             \begin{align*}
+%                 |\,5\,| = \sqrt{5^2} = \sqrt{25} = 5 \qquad\text{ and }\qquad |-3\,| = \sqrt{{(-3)}^2} = \sqrt{9} = 3
+%             \end{align*}
+% 
+%             \vfill
+% 
+        \section{Extra}
+
+        In an equation, the order of the operations is performed from left to right and
+        in the order shown in \fig{Table}{tab:order_of_operations}.
+
+        \begin{table}[ht!]
+            \centering
+            \begin{threeparttable}
+            \caption{Order of operations}\label{tab:order_of_operations}
+            \begin{tabular}{cc}
+                \toprule
+                \textbf{Order} & \textbf{Operation} \\
+                \midrule
+                1 & Round/Square Brackets and Braces \\
+                2 & Raising to power/Taking the $n$\textsuperscript{th} root \\
+                3 & Multiplication/Division \\
+                4 & Addition/Subtraction \\
+                \bottomrule
+            \end{tabular}
+            \end{threeparttable}
+        \end{table}
+
+        \paragraph{Example:}
+
+        \begin{align*}
+           \mhl{3^2}+5\mhl{(4-1)} - {\mhl{(2+3)}}^2 &= 9 + \mhl{5\times 3} - \mhl{5^2} \\
+                                       &= \mhl{9 + 15} - 25 \\
+                                       &= \mhl{24 - 25} \\
+                                       &= -1
+        \end{align*}
+
+        \pagebreak
+
+    \chapter{Functions}%
+        \label{chap:functions}
+        \qq{Mathematics as an expression of the human mind reflects the active will, the contemplative reason, and the desire for aesthetic perfection. Its basic elements are logic and intuition, analysis and construction, generality and individuality.}
+        {Richard Courant}
+        \newpage
+
+        \section{Introduction}%
+            \label{sec:functions_intro}
+
+        \begin{defn}
+            A \emph{function} is the relationship between values within an input set 
+            `$x$', known as the \emph{domain}, which are mapped to only one value within a
+            set of outputs `$y$', known as the \emph{range}.
+        \end{defn}
+
+        \subsection{The Relationship Between the Values in the Domain and Range Sets}
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.75]{data/figures/oneToOneRelationshipFigure}
+            \caption{One to one relationship.}\label{fig:one_to_one}
+        \end{figure}
+
+        In \fig{figure}{fig:one_to_one}, every element in the domain set is mapped to
+        only one element in the range set, thus representing a function.
+
+        \bigskip
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.75]{data/figures/manyToOneRelationshipFigure}
+            \caption{Many to one relationship}\label{fig:many_to_one}
+        \end{figure}
+
+        In \fig{figure}{fig:many_to_one}, one or more elements in the domain set is mapped
+        to only one element in the range set, thus also representing a function.
+
+        \pagebreak
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.75]{data/figures/oneToManyRelationshipFigure}
+            \caption{One to many relationship}\label{fig:one_to_many}
+        \end{figure}
+
+        In \fig{figure}{fig:one_to_many}, every element in the domain set is mapped to
+        one or more elements in the range set and therefore, it does not represent a function.
+
+        \subsection{Function Notation}
+
+        There are two most common ways to express a function; those are:
+
+        \nomlinesur{%
+            \begin{equation*}
+                f(x) = y \qquad\qquad\text{ and }\qquad\qquad f:x \rightarrow y
+            \end{equation*}
+        }{%
+            \vspace*{-0.75\baselineskip}
+
+            \begin{tabbing}
+                $f$ \hspace{15pt}\= name of the function \\
+                $x$ \> value in the domain set \\
+                $y$ \> value in the range set
+            \end{tabbing}
+
+            \vspace*{-0.75\baselineskip}
+        }
+
+        \paragraph{Example:}
+
+        \begin{align*}
+            f(x) = 3x + 2 \Rarr f(12) &= 3\times 12 + 2 \\
+            f(12) &= 36 + 2 \\
+            f(12) &= 38 \\[15pt]
+            f:x\rightarrow 10 - x^2 \Rarr f:3 &\rightarrow 10 - 3^2 \\
+            f:3 &\rightarrow 10 - 9 \\
+            f:3 &\rightarrow 1
+        \end{align*}
+
+        \pagebreak
+
+        \subsection{Interval Notation}
+
+        \emph{Interval notation} is a notation used to denote all of the numbers between
+        a given set of numbers. A pair of round brackets represents an open interval,
+        which does not include its initial and final values while a pair of square brackets
+        represents a closed interval, which include those values that are excluded by
+        the open interval. Also note that intervals usually have an infinity of values
+        between any two points.
+
+        \paragraph{Example:}
+
+        \begin{align*}
+            (0,5) &= \{1,\,2,\,3,\,4\} \\
+            [0,5] &= \{0,\,1,\,2,\,3,\,4,\,5\}
+        \end{align*}
+
+        An interval can contain both an open and a closed end:
+
+        \begin{align*}
+            (0,3] &= \{1,\,2,\,3\} \\
+            [4,10) &= \{4,\,5,\,6,\,7,\,8,\,9\}
+        \end{align*}
+
+        These intervals can also be represented graphically on the real number axis, 
+        where an open interval is represented by a white filled circles and a coloured
+        circles represents a closed interval.
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone{data/figures/intervalsOnTheRealNumberAxisFigure1}
+
+            \bigskip
+
+            \includestandalone{data/figures/intervalsOnTheRealNumberAxisFigure2}
+            \caption{Intervals on the real number axis}\label{fig:intervals_on_the_real_number_axis}
+        \end{figure}
+
+        \paragraph{Example:} for the function $f(x)=\frac{1}{x}$, the interval for the
+        domain is $(-\infty,0)\cup(0,\infty)$ as zero cannot be computed.
+
+        \pagebreak
+
+        \section{Other Types of Functions}
+        \label{sec:types_of_functions}
+
+        \subsection{Piecewise Functions}
+
+        A \emph{piecewise function} is a function which outputs a certain value where
+        the domain value satisfies certain conditions.
+
+        \paragraph{Example:}
+
+        \begin{equation*}
+            f(x) =
+                \begin{cases}
+                    -2 & \text{ if }\; x \leq 0 \\
+                    x & \text{ if }\; x > 0
+                \end{cases}
+        \end{equation*}
+
+        \begin{align*}
+            f(-3) &= -2 & &\text{and} & f(0) &= -2 \\
+            f(4) &= 4 & &\text{and} & f(1) &= 1
+        \end{align*}
+
+        \subsection{Composite Functions}
+
+        \emph{Composite functions} are functions that are composed of other functions.
+        The functions $f(x)$ and $g(x)$ can produce composite functions by applying them
+        to one another; by reversing the order in which they are applied, a new function
+        is obtained. Therefore, $f\left[g(x)\right]\neq g\left[f(x)\right]$.
+
+        There are three ways to represent a composite function; those are:
+
+        \txtlinesur{%
+            \begin{equation*}
+                f\left[g(x)\right] \qquad\text{ and }\qquad fg(x) \qquad\text{ and }\qquad f\circ g(x)
+            \end{equation*}
+        }
+
+        \paragraph{Example:} Let $\;f(x) = 2x + 1\;$ and $\;g(x) = x^3$:
+
+        \begin{align*}
+            fg(x) &= f(x^3) & gf(x) &= g(2x + 1) \\
+                  &= 2x^3 + 1 & &= {(2x + 1)}^3
+        \end{align*}
+
+        \pagebreak
+
+        \subsection{Inverse Functions}
+
+        An \emph{inverse function} is a function which takes as an input elements from
+        the range of another function and outputs its element in the domain; it basically
+        undoes a function. If $\;f(x)=y$, then:
+
+        \txtlinesur{%
+            \begin{equation*}
+                f^{-1}(y) = x
+            \end{equation*}
+        }
+
+        \paragraph{Example:} Let $\;f(x)=2x^3-1$:
+
+        \begin{align*}
+            f(x)=2x^3-1\Rarr x &= 2{\left[f^{-1}(x)\right]}^3 - 1 \\[2.5pt]
+            x+1 &= 2{\left[f^{-1}(x)\right]}^3 \\[2.5pt]
+            \frac{x+1}{2} &= {\left[f^{-1}(x)\right]}^3 \\[2.5pt]
+            f^{-1}(x) &= \sqrt[3]{\frac{x+1}{2}}
+        \end{align*}
+
+        \begin{align*}
+            f(3) = 2{(3)}^3 - 1 &= 2\times 27 - 1 = 53 \\[6.5pt]
+            \therefore f^{-1}(53) &= \sqrt[3]{\frac{53+1}{2}} \\[5pt]
+                                  &= \sqrt[3]{27} \\[5pt]
+                                  &= 3
+        \end{align*}
+
+        Therefore, the function $\;f(x)=2x^3-1\;$ has the inverse function $\;f^{-1}(x) = \sqrt[3]{\frac{x+1}{2}}$.
+
+        \pagebreak
+
+    \chapter{Representing Functions Graphically}%
+        \label{chap:graphical_functions}
+        \qq{Mathematics knows no races or geographic boundaries; for mathematics, the cultural world is one country.}
+        {David Hilbert}
+        \newpage
+
+        \section{Introduction}\label{sec:graphic_functions_introduction}
+
+        Any function can be represented graphically on a Cartesian coordinate system
+        (named after the French mathematician Ren\'{e} Descartes),
+        with the horizontal $x$-axis representing the \emph{domain} of that function
+        and the vertical $y$-axis representing its \emph{range}, thus representing all
+        possible output values that can be obtained for all possible input values.
+
+        \paragraph{Example:} Let $\;f(x)= 2x - 1$:
+
+        \begin{figure}[ht]
+            \centering
+        \begin{minipage}{0.3\textwidth}
+            \centering
+            \begin{tabular}{ccc}
+                \toprule
+                \textbf{Point} & $x$ & $f(x)$ \\
+                \midrule
+                A & 1 & 1 \\
+                B & 2 & 3 \\
+                C & 3 & 5 \\
+                D & 4 & 7 \\
+                E & 5 & 9 \\
+                \bottomrule
+            \end{tabular}
+        \end{minipage}
+        \hspace{15pt}
+        \begin{minipage}{0.6\textwidth}
+            \centering
+            \includestandalone[scale=.75]{data/figures/representingPointsOnACartesianGraphSystemFigure}
+        \end{minipage}
+        \caption{Representing points on a Cartesian graph system.}%
+        \label{fig:points_on_cartesian_graph}
+        \end{figure}
+
+%         In the example above, values within the range of the function $f(x)=2x-1$
+%         were plotted against their domain.
+
+        \fig{Figure}{fig:points_on_cartesian_graph} represents individual input (domain)
+        and output (range) values of the function `$f(x) = 2x-1$' as points, where each point
+        has coordinates `(\texttt{input}, \texttt{output})' or simply `$(x,y)$'.
+        Note that an expression such as `$f(x)=x$' can also be expressed as `$y=x$'.
+
+%         Note that the interval for both the domain and range of the function is $(-\infty,\infty)$.
+
+        \section{Linear Functions}\label{sec:linear_functions}
+
+        Representing a function using individual points is not the most efficient way as a
+        lot of information can be lost in the process. Instead, a line or a curve that
+        connects all points can be used in order to represent all possible input and
+        output values within a certain interval, as there is an infinite amount of points
+        coincident to a line/curve. When a function produces a straight line, it is known
+        as a \emph{linear function}.
+
+        \pagebreak
+
+        \noindent\textbf{Example:}
+        
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.844]{data/figures/linearFunctionsFigure}
+            \caption{Linear Functions}\label{fig:linear_functions}
+        \end{figure}
+
+        The example in \fig{figure}{fig:linear_functions} shows the graphical representation
+        of the function `$f(x) = 2x-1$', which produces a straight line. A straight line
+        is also known as a \emph{first degree polynomial} as the largest power of $x$
+        is one. All linear functions have the following structure:
+
+        \nomlinesur{%
+            \begin{equation}
+                y = mx + c
+                \label{eq:straight_line_formula}
+            \end{equation}
+        }{%
+            \vspace*{-0.5\baselineskip}
+
+            \begin{tabbing}
+                $c$ \hspace{25pt}\= intercept \\
+                $m$ \> gradient
+            \end{tabbing}
+
+            \vspace*{-0.5\baselineskip}
+        }
+
+        \subsection{The Gradient of a Line}
+
+        The coefficient of $x$ in a linear function is known as the \emph{gradient}
+        of the line (usually denoted `$m$') and it shows its steepness. It is the rate
+        of change in $y$ with respect to $x$.
+
+        \txtlinesur{%
+            \begin{equation}
+                m = \frac{y_2-y_1}{x_2-x_1} = \frac{\Delta y}{\Delta x}
+                \label{eq:straight_line_gradient}
+            \end{equation}
+        }
+
+        \pagebreak
+
+        \begin{figure}[ht]
+            \centering
+                \begin{subfigure}{0.45\textwidth}
+                    \centering
+                    \includestandalone[scale=.7]{data/figures/linesOfDifferentGradientsAFigure}
+                    \caption{}\label{fig:lines_of_different_gradients_a}
+                \end{subfigure}
+                \hspace{20pt}
+                \begin{subfigure}{0.45\textwidth}
+                    \centering
+                    \includestandalone[scale=.7]{data/figures/linesOfDifferentGradientsBFigure}
+                    \caption{}\label{fig:lines_of_different_gradients_b}
+                \end{subfigure}
+            \caption{Lines of different gradients}\label{fig:lines_of_different_gradients}
+        \end{figure}
+
+        In \fig{figure}{fig:lines_of_different_gradients}, there are two lines that have
+        different gradients. The line in \fig{figure}{fig:lines_of_different_gradients_a}
+        has a gradient of \emph{two} because for every step in the $x$ direction, there are two
+        steps in the $y$ direction. Similarly, in \fig{figure}{fig:lines_of_different_gradients_b},
+        the gradient of the line is \emph{one half} because for every step in the $x$ direction
+        there is a half step in the $y$ direction.
+
+        \paragraph{Example:} Find the gradient of the line that passes through points
+        A and B if $\quad\mathrm{A} = (1,2)\quad\text{ and }\quad\mathrm{B} = (2,4)$:
+
+        \begin{align*}
+            m = \frac{\D y}{\D x} \Rarr m &= \frac{y_2-y_1}{x_2-x_1} \\[5pt]
+            m &= \frac{4-2}{2-1} \\[5pt]
+            m &= 2
+        \end{align*}
+
+        \subsection{The Intercept of a Line}
+
+        The term added to or subtracted from the $x$ term is known as the \emph{intercept}
+        (denoted `$c$') and it shows the intersection point of the line with the $y$-axis.
+        For example, the line $y=2x-1$ in \fig{figure}{fig:linear_functions} has an intercept
+        of one as the line crosses the $y$-axis at point $(0,-1)$.
+
+        \pagebreak
+
+        \begin{figure}[ht]
+            \centering
+                \begin{subfigure}{0.45\textwidth}
+                    \centering
+                    \includestandalone[scale=.7]{data/figures/linesOfDifferentInterceptAFigure}
+                    \caption{}\label{fig:lines_of_different_intercepts_a}
+                \end{subfigure}
+                \hspace{20pt}
+                \begin{subfigure}{0.45\textwidth}
+                    \centering
+                    \includestandalone[scale=.7]{data/figures/linesOfDifferentInterceptBFigure}
+                    \caption{}\label{fig:lines_of_different_intercepts_b}
+                \end{subfigure}
+            \caption{Lines of different intercepts}\label{fig:lines_of_different_intercepts}
+        \end{figure}
+
+        Similar to the intercept, the point where a line crosses the $x$-axis can be
+        found when $f(x)=0$.
+
+        \paragraph{Example:} for $f(x)=-x+1\;\;$ and $\;\;f(x)=\frac{1}{2}x-1$:
+
+        \begin{align*}
+            -x+1 &= 0 & \frac{1}{2}x-1 &= 0 \\
+            -x &= -1 & \frac{1}{2}x &= 1 \\
+            x &= 1 & x &= 2
+        \end{align*}
+
+        Therefore, the line $f(x)=-x+1$ crosses the $x$-axis at point $(1,0)$, while
+        the line $f(x)=\frac{1}{2}x-1$ crosses t he $x$-axis at point $(2,0)$, as shown
+        in \fig{figure}{fig:lines_of_different_intercepts}.
+
+        \subsection{The Distance Between Two Points}
+
+        The distance, $d$, between two points can be calculated as such:
+
+        \txtlinesur{%
+            \begin{equation}
+                d = \sqrt{{(x_2-x_1)}^2 + {(y_2-y_1)}^2}
+                \label{eq:distance_between_two_points}
+            \end{equation}
+        }
+
+        \pagebreak
+
+        \noindent\textbf{Example:} Find the \emph{distance} between the points $(2,1)$
+        and $(3,4)$:
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.65]{data/figures/distanceBetweenTwoPointsFigure}
+            \caption{Distance between two points}\label{fig:distance_between_two_points}
+        \end{figure}
+
+        \begin{align*}
+            d = \sqrt{{(x_2-x_1)}^2+{(y_2-y_1)}^2} \Rarr d &= \sqrt{{(3-2)}^2+{(4-1)}^2} \\[5pt]
+            d &= \sqrt{1^2 + 3^2} \\[5pt]
+            d &= \sqrt{10}
+        \end{align*}
+
+        \subsection{The Midpoint of a Line}
+
+        The \emph{midpoint}, $p_\mathrm{mid}$, between two points on a line can be found by taking the mean
+        between the $x$ coordinates and the $y$ coordinates respectively.
+
+        \eqlinesur{%
+            \begin{equation}
+                p_\mathrm{mid} = \left(\frac{x_1+x_2}{2},\,\frac{y_1+y_2}{2}\right)
+                \label{eq:midpoint}
+            \end{equation}
+        }
+
+        \begin{align*}
+            p_\mathrm{mid} = \left(\frac{x_1+x_2}{2},\,\frac{y_1+y_2}{2}\right) \Rarr p_\mathrm{mid} &= \left(\frac{2+3}{2},\,\frac{4+1}{2}\right) \\[5pt]
+            p_\mathrm{mid} &= \left(\frac{5}{2},\,\frac{5}{2}\right)
+        \end{align*}
+
+        \pagebreak
+
+        \subsection{The Gradient--Point Formula}
+
+        The equation of a line that passes through a certain point and has a certain
+        gradient can be found using the following formula:
+
+        \nomlinesur{%
+            \begin{equation}
+                y-y_1 = m(x-x_1)
+                \label{eq:point_slope_formula}
+            \end{equation}
+        }{%
+            \begin{tabbing}
+                $(x_1,\,y_1)$ \hspace{30pt}\= point through which the line passes
+            \end{tabbing}
+        }
+
+        \noindent\textbf{Example:}\; Find the equation of the line that has a gradient of $-3$
+        and passes through point $(-2,1)$:
+
+        \begin{align*}
+            y-y_1=m(x-x_1) \Rarr y-1 &= -3[x-(-2)] \\
+            y &= -3(x+2) +1 \\
+            y &= -3x - 5
+        \end{align*}
+
+        \subsection{Representing Constants Graphically}
+
+        A constant, also known as a \emph{zero degree polynomial}, is represented graphically as a flat line where the value of $y$ is
+        the same for all values of $x$, crossing the $y$ axis at that value. It is basically
+        a line with gradient zero, in the form of $f(x)=c$.
+
+        \begin{figure}[ht!]
+            \centering
+            \includestandalone[scale=.65]{data/figures/graphicalRepresentationOfConstants}
+            \caption{Graphical Representation of Constants}%
+            \label{fig:graphical_representation_of_constants}
+        \end{figure}
+
+        \pagebreak
+
+        \subsection{The Equation of a Perpendicular Line}
+
+        A line which is perpendicular to another line will have a gradient equal to
+        the negative reciprocal of the other line's gradient; therefore for a line with
+        gradient $m$, the gradient of the perpendicular line would be $-\frac{1}{m}$.
+        The equation of a perpendicular line can be found using \fig{equation}{eq:point_slope_formula}
+        if the point of intersection is known.
+
+        If line $B$ is perpendicular to line $A$, the gradient of line $B$, $m_B$,
+        is equal to:
+
+        \eqlinesur{%
+            \begin{equation}
+                m_B = -\left(\frac{1}{m_A}\right)
+            \end{equation}
+        }
+
+        \paragraph{Example:} Find the equation of the line perpendicular to line $f(x)=2x-1$
+        which intersects at point $(0,-1)$:
+
+        \begin{align*}
+            y-y_1=m(x-x_1) \Rarr y-(-1) &= -\frac{1}{2}(x-0) \\
+            y &= -\frac{1}{2}x-1
+        \end{align*}
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.80]{data/figures/perpendicularLinesFigure}
+            \caption{Perpendicular Lines}
+            \label{fig:perpendicular_lines}
+        \end{figure}
+
+        \subsection{Intersecting Lines}
+
+        The point of intersection of two lines can be found by simultaneous adding or
+        subtracting their equation, which will result in either the $x$ or the $y$ coordinate
+        for that point. After that coordinate is obtained, the other one can by found
+        by inputting the known coordinate into the function.
+
+        \paragraph{Example:} Find the point of intersection of lines $y=\frac{1}{2}x+1\;$
+        and $\;y=\frac{3}{2}x-1$:
+
+        \begin{itemize}
+            \item The first step is to rearrange the equations:
+            \begin{align*}
+                y = \frac{1}{2}x+1 \Rarr \frac{1}{2}x - y &= -1 \\[5pt]
+                y = \frac{3}{2}x-1 \Rarr \frac{3}{2}x - y &= 1
+            \end{align*}
+            \item Then, the simultaneous operation is performed. In this case, subtraction
+            is the best option.
+                \[
+                \begin{array}{rl}
+                    \frac{1}{2}x\cancel{-y}=-1 & \multirow{2}{*}{\Large $\!-$} \\[5.5pt]
+                    \frac{3}{2}x\cancel{-y}=\phantom{-}1 & \\[5pt]
+                    \cline{1-1}
+                    \multirow{2}{*}{\(-x=-2\)} & \\
+                    \multirow{2}{*}{\(x=\phantom{-}2\)}\\
+                \end{array}
+                \]
+            \item Finally, the coordinate obtained is used to obtain the other one.
+                \begin{align*}
+                    y=\frac{1}{2}x+1 \Rarr y &= \frac{1}{2}(2)+1 \\[5pt]
+                    y &= 1+1 \\
+                    y &= 2
+                \end{align*}
+        \end{itemize}
+
+        Therefore, the lines intersect at point $(2,2)$, as shown in \fig{figure}{fig:intersecting_lines}.
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.75]{data/figures/intersectingLinesFigure}
+            \caption{Intersecting Lines}%
+            \label{fig:intersecting_lines}
+        \end{figure}
+
+        \pagebreak
+
+        \section{Higher Degree Polynomials}\label{sec:higher_degree_polynomials}
+
+        When plotting \emph{second degree polynomial}, also known as \emph{quadratic polynomials},
+        the shape that is obtained is known as a \emph{parabola}. The structure of a
+        quadratic polynomial is $ax^2 + bx + c$, with the largest power of $x$ being two.
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.75]{data/figures/quadraticPolynomialsFigure}
+            \caption{Quadratic Functions}%
+            \label{fig:quadratic_functions}
+        \end{figure}
+
+        In the case of higher degree polynomials, the gradient is not constant anymore
+        as curves have an infinite amount of gradients.
+
+        \pagebreak
+
+        \subsection{The Intersection of a Curve with the $x$-axis}
+
+        A quadratic curve can intersect the $x$-axis up to two times. The location of
+        intersection can be found by factorising the function while equalling zero.
+
+        \paragraph{Example:} Let $f(x)=x^2-1$:
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.75]{data/figures/theIntersectionOfAQuadraticFunctionWithTheXAxisFigure}
+            \caption{The Intersection of a Quadratic Function with the $x$-axis}%
+            \label{fig:quadratic_xAxis_intersection}
+        \end{figure}
+
+        \begin{gather*}
+            x^2-1 = 0 \\
+            (x+1)(x-1) = 0 \\[5pt]
+            x = -1 \qquad\text{ and }\qquad x = 1
+        \end{gather*}
+
+        Therefore, the curve crosses the $x$-axis at $(-1,0)$ and at $(1,0)$.
+
+        \subsection{The Quadratic Formula}
+
+        The \emph{quadratic formula} is a formula used to find the location of intersection
+        of the curve with the $x$-axis for any function $f(x)=ax^2+bx+c$:
+
+        \txtlinesur{%
+            \begin{equation}
+                x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}
+            \end{equation}
+        }
+
+        \subsection{Complex Roots of a Quadratic Equation}
+
+        There are cases where a quadratic curve does not intersect with the $x$-axis.
+        In those cases, $f(x)=0$ has no \emph{real} solutions.
+
+        \paragraph{Example:} Let \(f(x)=x^2+1\):
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.75]{data/figures/complexRootsOfAQuadraticEquationFigure}
+            \caption{Complex Roots of a Quadratic Function}%
+            \label{fig:complex_roots_of_quadratic_function}
+        \end{figure}
+
+        \begin{align*}
+            x^2+1 = 0 \Rarr x^2 &= -1 \\
+            x &= \sqrt{-1}
+        \end{align*}
+
+        As shown in \fig{Chapter}{chap:mathematical_operations}, when multiplying a number
+        by itself (known as squaring a number), regardless of whether that number is positive or negative,
+        it will always result in a positive number. Therefore, no number will have a
+        negative result when squared, making $x=\sqrt{-1}$ unsolvable. This is known
+        as an \emph{imaginary} number. If the result to $f(x)=0$ is \emph{imaginary}, it means
+        that the curve does not cross the $x$-axis.
+
+        \subsection{The Effect of the $x$ Coefficients on a Quadratic Curve}
+
+        In a quadratic equation such as $f(x)=ax^2+bx+c$, the terms $a$ and $b$ affect
+        the shape of the curve produced in different ways. So far, in the figures above,
+        the $a$ term was one and the $b$ term was zero.
+
+        \pagebreak
+
+        \begin{figure}[ht]
+            \centering
+            \begin{subfigure}{.45\textwidth}
+                \centering
+                \includestandalone[scale=.575]{data/figures/quadrativCurvesWithDifferentValuesForAFigure1}
+                \caption{Let $a=3$}\label{fig:quadratic_curves_with_different_values_for_A_a}
+            \end{subfigure}
+            \begin{subfigure}{.45\textwidth}
+                \centering
+                \includestandalone[scale=.575]{data/figures/quadrativCurvesWithDifferentValuesForAFigure2}
+                \caption{Let $a=\frac{1}{2}$}\label{fig:quadratic_curves_with_different_values_for_A_b}
+            \end{subfigure}
+            \begin{subfigure}{.45\textwidth}
+                \centering
+                \includestandalone[scale=.575]{data/figures/quadrativCurvesWithDifferentValuesForAFigure3}
+                \caption{Let $a=-1$}\label{fig:quadratic_curves_with_different_values_for_A_c}
+            \end{subfigure}
+            \caption{Quadratic Curves With Different Values for $a$}\label{fig:quadratic_curves_with_different_values_for_A}
+        \end{figure}
+        \begin{figure}[ht!]
+            \centering
+            \begin{subfigure}{.45\textwidth}
+                \centering
+                \includestandalone[scale=.575]{data/figures/quadrativCurvesWithDifferentValuesForBFigure1}
+                \caption{Let $b=1$}\label{fig:quadratic_curves_with_different_values_for_A_a}
+            \end{subfigure}
+            \begin{subfigure}{.45\textwidth}
+                \centering
+                \includestandalone[scale=.575]{data/figures/quadrativCurvesWithDifferentValuesForBFigure2}
+                \caption{Let $b=-2$}\label{fig:quadratic_curves_with_different_values_for_A_b}
+            \end{subfigure}
+            \caption{Quadratic Curves With Different Values for $b$}\label{fig:quadratic_curves_with_different_values_for_B}
+        \end{figure}
+
+        \pagebreak
+
+        \subsection{Even and Odd Degree Polynomials}
+
+        All polynomials can be classed into two categories, even and odd. \emph{Even polynomials}
+        have an \emph{even} number as the highest power of $x$, (i.e.\ $x^{2n}$) while \emph{odd polynomials}
+        have an \emph{odd} number as the highest power of $x$, (i.e.\ $x^{2n-1}$).
+
+        Even polynomials result in parabolas and have \emph{many to one} relationships
+        while odd polynomials are typically \emph{one to one} (although not always).
+
+        \begin{figure}[ht]
+            \centering
+            \begin{subfigure}{.45\textwidth}
+                \centering
+                \includestandalone[scale=.615]{data/figures/evenPolynomialsFigure}
+                \caption{Even Polynomials}\label{fig:even_polynomials}
+            \end{subfigure}
+            \begin{subfigure}{.45\textwidth}
+                \centering
+                \includestandalone[scale=.615]{data/figures/oddPolynomialsFigure}
+                \caption{Odd Polynomials}\label{fig:odd_polynomials}
+            \end{subfigure}
+            \caption{Even and Odd Polynomials}\label{fig:even_odd_polynomials}
+        \end{figure}
+
+        The only difference between \emph{even} and \emph{odd} polynomials is the shape
+        in the interval $(-\infty,0\:\!]$, which is negative for \emph{odd} polynomials.
+
+        \begin{table}[ht]
+            \centering
+            \begin{threeparttable}
+            \caption{Degrees of Polynomials}\label{tab:degrees_of_polynomials}
+            \begin{tabular}{ccc}
+                \toprule
+                \textbf{Name} & \textbf{Degree} & \textbf{Function}  \\
+                \midrule
+                Constant & zero & $ax^0$ \\
+                Linear & one & $ax^1+b$ \\
+                Quadratic & two & $ax^2+bx+c$ \\
+                Cubic & three & $ax^3+bx^2+cx+d$ \\
+                Quartic & four & $ax^4+bx^3+cx^2+dx+e$ \\
+                Quintic & five & $ax^5+bx^4+\cdots+ex+f$ \\
+                \bottomrule
+            \end{tabular}
+            \end{threeparttable}
+        \end{table}
+
+        \pagebreak
+
+        \section{Circle Graphs}%
+        \label{sec:graphs_of_circles}
+
+        Circles can also be represented graphically; their function have a structure of
+        $x^2+y^2=r^2$, where $r$ is the radius of the circle.
+
+        \begin{figure}[ht!]
+            \centering
+            \includestandalone[scale=.75]{data/figures/graphOfCircleFigure}
+            \caption{Graph of a Circle}\label{fig:graph_of_circle}
+        \end{figure}
+
+        \txtlinesur{%
+            \begin{equation}
+                x^2 + y^2 = r^2
+            \end{equation}
+        }
+
+        This is based on the \emph{Pythagorean Theorem}, where the square of the hypotenuse
+        of a right angle triangle is equal to the sum of the squares of the other two sides. In this
+        case, the \emph{hypotenuse} is the radius of the circle which is constant and
+        the other two sides are the distances in $x$ and $y$ direction from the centre
+        of the circle.
+
+        Any circle with centre at a point $(h,k)$ can be plotted using the following structure:
+
+        \txtlinesur{%
+            \begin{equation}
+                {(x+h)}^2 + {(y+k)}^2 = r^2
+            \end{equation}
+        }
+
+        \begin{figure}[ht]
+            \centering
+            \includestandalone[scale=.7]{data/figures/circlesWithDifferentCentresFigure}
+            \caption{Circles With Different Centres}\label{fig:circles_with_different_centres}
+        \end{figure}
+
+        \subsection{The Effect of the $x$ and $y$ Coefficients on a Circle}
+
+        Like in the case of quadratic curves, the $x$ and $y$ coefficients in an equation such as
+        $f(x)=ax^{2}+bx^{2}=r^{2}$ also affect the shape of the circle. However, both $a$ and $b$
+        have the same effect but on their corresponding axis.
+
+        \begin{figure}[ht]
+          \centering
+          \begin{subfigure}{0.45\textwidth}
+            \centering
+            \includegraphics[scale=.575]{data/figures/circleGraphWithDifferentValueForAFigure.tex}
+            \caption{Different Values for $a$}
+          \end{subfigure}
+          \begin{subfigure}{0.45\textwidth}
+            \centering
+            \includegraphics[scale=.575]{data/figures/circleGraphWithDifferentValueForBFigure.tex}
+            \caption{Different Values for $b$}
+          \end{subfigure}
+          \caption{Circles With Different $x$ and $y$ Coefficients}
+        \end{figure}
+
+        \section{Asymptotic Functions}
+
+        When plotting a function such as $f(x)=\frac{1}{x}$, the shape obtained is called
+        a \emph{hyperbola}. As $x$ cannot be zero, the curve gets infinitely closer
+        zero but never reaches it; this is known as an \emph{asymptote}.
+
+        \begin{figure}[ht!]
+            \centering
+            \includestandalone[scale=.75]{data/figures/graphOfHyperbolasFigure}
+            \caption{Graph of Hyperbolas}\label{fig:graph_of_hyperbolas}
+        \end{figure}
+
+        % Add different asymptotic functions
+
+        \pagebreak
+
+        \section{Graphs of Piecewise Functions}
+
+        Piecewise functions basically apply everything above, binding them to a certain condition.
+
+        % \paragraph{Let:} $f(x)=\left\{
+        %   \begin{array}{cl}
+        %     2.5 & \text{ if }\ -4 < x < -1 \\[2.5pt]
+        %     \frac{1}{2}x^{2}-2x & \text{ if }\ -1 \leq x \leq 4.5 \\[2.5pt]
+        %     -\frac{1}{3}x + 3 & \text{ if }\ 4.5 < x < 7
+        %   \end{array}
+        % \right.$
+
+        \paragraph{Let:} \(f(x)=\begin{cases}
+            2 & \text{if } -4 \leq x < 0 \\
+            x & \text{if }  0 < x < 4
+        \end{cases}\)
+
+        \begin{figure}[ht]
+          \centering
+          \includestandalone[scale=.75]{data/figures/conditionalFunctionGraphFigure}
+          \caption{Piecewise Functions}\label{fig:piecewise_functions}
+        \end{figure}
+
+
+
+    \chapter{Set Theory}%
+        \label{chap:set_theory}
+        \qq{What is mathematics? It is only a systematic effort of solving puzzles posed by nature.}
+        {Shakuntala Devi}
+        \newpage
+
+    %     \section{The Basics of Set Theory}
+    %         \label{sec:set_theory}
+
+    %     A set is defined as a \textit{collection} of elements, which can be either
+    %     \textit{finite} or \textit{infinite}.
+
+    %     \begin{figure}[ht!]
+    %       \centering
+    %       \includestandalone[]{data/figures/venn_diagrams}
+    %       \caption{Venn diagrams of sets \(A\) and \(B\).}
+    %       \label{fig:venn_diagrams}
+    %     \end{figure}
+
+    %     {\large \[A = \{1,\,2,\,3,\,4\} \qquad\text{and}\qquad B = \{a,\,c,\,2,\,8\}\]}
+
+    %     In \fig{figure}{fig:venn_diagrams}, both set $A$ and $B$ are \textit{finite}, consisting of four elements each. An example of an \textit{infinite} set would be the set of positive integers `$\mathbb{Z}^+$'.
+
+    %     \[\mathbb{Z}^+ = \{1,\,2,\,3,\,4,\,\dots\}\]
+
+    %     In a set, if elements are repeated multiple times, they are only listed once.
+
+    %     \[\{a,\,b,\,a,\,c,\,b,\,a\} = \{a,\,b,\,c\}\]
+
+    %     Also, there is no order in a set, although elements are usually ordered from smallest to biggest for convenience.
+
+    %     \[\{1,\,2,\,3\} = \{3,\,2,\,1\} = \{2,\,1,\,3\}\]
+
+    %     \pagebreak
+
+    % \subsection{Common Sets}
+    %     \label{ssec:common_sets}
+
+    %     % \begin{table}[ht!]
+    %     %   \centering
+    %     %   \begin{threeparttable}
+    %     %   \caption{Number Sets}
+    %       % \begin{tabular}{ccc}
+    %       %   \toprule
+    %       %   \textbf{Symbol} & \textbf{Name} & \textbf{Contents} \\
+    %       %   \midrule
+    %       %   \(\mathbb{N}\) & Natural numbers set & \(\{1,\,2,\,3,\,4,\dots\}\) \\[3.5pt]
+    %       %   \(\mathbb{Z}\) & Integer set & \(\{\dots,\,-2,\,-1,\,0,\,1,\,2,\dots\}\) \\[3.5pt]
+    %       %   \(\mathbb{Q}\) & Rational number set & \(\left\{\dots,\,-\frac{1}{2},\,\frac{0}{3},\,\frac{2}{3},\,\frac{1}{4},\,\frac{3}{3},\dots\right\}\) \\[3.5pt]
+    %       %   \(\mathbb{R}\) & Real number set & \(\left\{\dots,\,-3.5,\,0,\,\frac{1}{2},\,1,\,\sqrt{2},\,\pi,\dots\right\}\) \\[3.5pt]
+    %       %   \(\mathbb{I}\) & Imaginary number set & \(\left\{\dots,\,-3.1i,-i,\,\frac{i}{2},\,2i,\,\pi i,\dots\right\}\) \\[3.5pt]
+    %       %   \(\mathbb{C}\) & Complex number set & \(\left\{\dots,\,-3+i\,,\,\pi-2i\,,\dots\right\}\) \\
+    %       %   \bottomrule
+    %       % \end{tabular}
+    %     %   \end{threeparttable}
+    %     % \end{table}
+
+    %     \begin{align*}
+    %         \text{Natural Numbers:}& & \mathbb{N} &= \{1,\,2,\,3,\,4,\,\dots\} \\[\smallskipamount]
+    %         \text{Integers:}& & \mathbb{Z} &= \{\dots\,,\,-2,\,-1,\,0,\,1,\,2,\,\dots\} \\[\smallskipamount]
+    %         \text{Rational Numbers:}& & \mathbb{Q} &= \left\{\dots\,,\,-\frac{1}{2},\,\frac{0}{3},\,\frac{2}{3},\,\frac{1}{4},\,\frac{4}{4},\,\dots\right\} \\%[\smallskipamount]
+    %         % \text{Real Numbers:}& & \mathbb{R} &= \left\{\dots,\,-3.5,\,0,\,\frac{1}{2},\,1,\,\sqrt{2},\,\pi,\dots\right\} \\[\smallskipamount]
+    %         % \text{Imaginary Numbers:}& & \mathbb{I} &= \left\{\dots,\,-3.1i,-i,\,\frac{i}{2},\,2i,\,\pi i,\dots\right\} \\[\smallskipamount]
+    %         % \text{Complex Numbers:}& & \mathbb{C} &= \left\{\dots,\,-3+i\,,\,\pi-2i\,,\dots\right\}
+    %     \end{align*}
+
+    % \subsection{Elements and Cardinality}
+    %     \label{ssec:elements_and_cardinality}
+
+    %     \noindent Let \(\displaystyle\; C = \{\mathtt{yellow},\,\mathtt{blue},\,\mathtt{red}\}\):
+
+    %     \begin{align*}
+    %     \mathtt{yellow} &\in C & &\text{``\texttt{yellow} \textit{is an element} of } C \text{''} \\[\medskipamount]
+    %     \mathtt{green} &\notin C & &\text{``\texttt{green} \textit{is not an element} of } C \text{''} \\[\medskipamount]
+    %     \left\vert\, C\, \right\vert &= 3 & &\text{``the \textit{cardinality (size)} of } C \text{ is } 3 \text{''}
+    %     \end{align*}
+
+    %     If a set is an empty set, it is denoted by the symbol `$\emptyset$' and it has a cardinality of zero.
+
+    %     \begin{align*}
+    %     \emptyset &= \{\;\} \\[\medskipamount]
+    %     |\,\emptyset\,| &= 0 \\[\medskipamount]
+    %     \left|\left\{\emptyset\right\}\right| &= 1 \\
+    %     \end{align*}
+
+    %     A set containing the empty set has a cardinality of one because although the empty set has no elements, the empty set itself is an element of the set containing it.
+
+    %     \pagebreak
+
+    %     \section{Predicate Notation}
+    %         \label{sec:set_builder_notation}
+
+    %         The \textit{predicate notation}, also known as \textit{set-builder notation}, is a notation which defines the elements of a set a variables which abide to certain conditions; this can be interpreted as: $\{$all \texttt{variables}, \textit{such that} \texttt{condition}~$\}$.
+
+    %         \[\left\{\,\mathtt{variable}\,\middle|\,\mathtt{condition}\,\right\}\]
+
+    %          For example, the set of rational numbers can be expressed in predicate notation as such:
+
+    %         \[\mathbb{Q} = \left\{\frac{m}{n}\,\middle\vert\: n,\,m \in \mathbb{Z};\: n\neq 0\right\}\]
+
+    %          The set of even integers can be expressed as such:
+
+    %         \[2\mathbb{Z} = \left\{2n\,\middle|\:n\in\mathbb{Z}\right\}\]
+
+    %          Logic operators such as `$\wedge$' for logic AND, and `$\vee$' for logic OR can also be used in order to express more complex sets.
+
+    %     \section{Set operations}
+    %         \label{sec:set_operations}
+
+    %         All sets exist within a \textit{universe} `\(\mathscr{U}\)'. The universe can be defined as another set, such as the \textit{real numbers} `$\mathbb{R}$', or the \textit{integer set} `$\mathbb{Z}$' and is therefore \textit{relative}.
+
+    %         \begin{figure}[ht]
+    %             \centering
+    %             \includestandalone{data/figures/set_within_universe}
+    %             \caption{A set `\(A\)' within an universe `\(\mathscr{U}\)'.}
+    %             \label{fig:set_in_universe}
+    %         \end{figure}
+
+    %     \pagebreak
+
+    %         \subsection{The complement of a set}
+    %             \label{ssec:complement}
+
+    %         \begin{figure}[ht]
+    %             \centering
+    %             \includestandalone{data/figures/complement_of_set}
+    %             \caption{Complement of set $A$.}
+    %             \label{fig:complement_of_set}
+    %         \end{figure}
+
+    %         The complement of set $A$ consists of everything outside of the set, within the universe and is denoted as: $\bar{A},\;A',\;\text{or}\;A^c$.
+
+    %         {\large \[\bar{A} = \left\{n\in\mathscr{U}\,\middle|\:n\notin A\right\}\]}
+
+    %         \subsection{The intersection of sets}
+
+
+    %         \begin{figure}[ht]
+    %             \centering
+    %             \includestandalone{data/figures/intersection_of_set}
+    %             \caption{Intersection of sets $A$ and $B$.}
+    %             \label{fig:intersection_of_sets}
+    %         \end{figure}
+
+    %         The intersection of two or more sets consists of all elements that are common in all sets and is denoted with: $A\cap B$.
+
+    %         {\large \[A\cap B = \left\{n\,\middle|\:n\in A\;\wedge\;n\in B\right\}\]}
+
+    %         \pagebreak
+
+    %         \subsection{The union of sets}
+
+    %         \begin{figure}[ht]
+    %             \centering
+    %             \includestandalone{data/figures/union_of_set}
+    %             \caption{Union of sets $A$ and $B$.}
+    %             \label{fig:union_of_set}
+    %         \end{figure}
+
+    %          The union of two or more sets consists of every element in all sets and is denoted: $A \cup B$.
+
+    %         {\large \[A\cup B = \left\{n\,\middle|\:n\in A\;\vee\;n\in B\right\}\]}
+
+    %         \subsection{The difference of sets}
+
+    %         \begin{figure}[ht]
+    %             \centering
+    %             \includestandalone{data/figures/difference_of_set}
+    %             \caption{Difference of sets $A$ and $B$.}
+    %             \label{fig:difference_of_set}
+    %         \end{figure}
+
+    %          The difference of two sets consists of all the elements in the first set but no elements from the second set and is denoted: $\:A - B$, $\:A\setminus B\:$ or $\:A\cap \bar{B}$.
+
+    %         {\large \[A - B = \left\{n\,\middle|\:n\in A\;\wedge\;n\notin B\right\}\]}
+
+    %         \pagebreak
+
+    %         \subsection{The symmetric difference of sets}
+
+    %         \begin{figure}[ht]
+    %             \centering
+    %             \includestandalone{data/figures/symmetric_difference_of_set}
+    %             \caption{Symmetric difference of sets $A$ and $B$.}
+    %             \label{fig:symmetric_difference_of_sets}
+    %         \end{figure}
+
+    %         The symmetric difference of two sets, $A$ and $B$, consists the union between the difference of $A$ and $B$, and $B$ and $A$. This is denoted by: $\:A\ominus B$, $\:A\, \D\, B\:$ or $\:(A - B)\cap(B - A)$.
+
+    %         {\large \[A\,\D\,B = \left\{n\,\middle|\:n\in(A\cup B)\;\wedge\;n\notin(A\cap B)\right\}\]}
+
+    %         \subsection{Examples:}
+
+    %         \[A = \{1,\,3,\,5,\,7,\,9\} \qquad B = \{4,\,8,\,12,\,16\} \qquad C = \{1,\,4,\,9,\,16\}\]
+
+    %         \begin{align*}
+    %             A\cup B &= \{1,\,3,\,4,\,5,\,7,\,8,\,9,\,12,\,16\} \\[\smallskipamount]
+    %             C\cap B &= \{4,\,16\} \\[\smallskipamount]
+    %             C - B &= \{1,\,9\} \\[\smallskipamount]
+    %             B\,\D\,C &= \{1,\,8,\,9,\,12\} \\[\smallskipamount]
+    %             \emptyset\cap B &= \emptyset
+    %         \end{align*}
+
+    %         \pagebreak
+
+    %         \section{Subsets and Supersets}
+
+    %             \begin{figure}[ht]
+    %                 \centering
+    %                 \includestandalone{data/figures/sets_and_supersets}
+    %                 \caption{Subsets and supersets}
+    %                 \label{fig:subsets}
+    %             \end{figure}
+
+    %             In \fig{figure}{fig:subsets}, above, $B$ is a subset of $A$. This is denoted as: $\:B \subseteq A\:$ when $B$ is the same size or less than $A$ and $\:B\subset A\:$ when $B$ is strictly smaller than $A$, also known as a proper subset. For example:
+
+    %             \begin{align*}
+    %                 \{a,\,b\} \subseteq \{a,\,b,\,c\}\quad&\text{and}\quad \{a,\,b\} \subset \{a,\,b,\,c\}  \\[\smallskipamount]
+    %                 \{c,\,d\} \subseteq \{c,\,d\}\quad&\text{but}\quad \{c,\,d\} \centernot{\subset} \{c,\,d\}  \\[\smallskipamount]
+    %                 \{a\} \centernot{\subseteq} \left\{\{a\}\right\} \quad&\text{and}\quad \{a\} \centernot{\subset} \left\{\{a\}\right\} \\[\smallskipamount]
+    %                 \emptyset \subseteq \{x,\,y,\,z\} \quad&\text{and}\quad \emptyset \subset \{x,\,y,\,z\}
+    %             \end{align*}
+
+    %             Moreover, a superset is the opposite of a subset. In \fig{figure}{fig:subsets}, $A$ is a superset of $B$ and is denoted as: $\:A\supseteq B\:$ for the same size or bigger and $\:A\supset B\:$ when $A$ is strictly bigger than $B$, also known as a proper superset.
+
+    %             \begin{align*}
+    %                 \{a,\,b,\,c\} \supseteq \{a,\,b\}\quad&\text{and}\quad  \{a,\,b,\,c\} \supset \{a,\,b\} \\[\smallskipamount]
+    %                 \{c,\,d\} \supseteq \{c,\,d\}\quad&\text{but}\quad \{c,\,d\} \centernot{\supset} \{c,\,d\}  \\[\smallskipamount]
+    %                 \left\{\{a\}\right\} \centernot{\supseteq} \{a\} \quad&\text{and}\quad \left\{\{a\}\right\} \centernot{\supset} \{a\} \\[\smallskipamount]
+    %                 \{x,\,y,\,z\} \supseteq \emptyset \quad&\text{and}\quad \{x,\,y,\,z\} \supset \emptyset
+    %             \end{align*}
+
+    %             Therefore: \(\;\mathbb{N} \subseteq \mathbb{Z}\because \mathbb{N} \in \mathbb{Z}\quad\text{and}\quad \mathbb{R} \supseteq \mathbb{Z}\because\mathbb{Z}\in\mathbb{R}\).
+
+                \pagebreak
+
+    \chapter{Geometry}%
+        \label{chap:geometry}
+        \qq{\,‘Obvious’ is the most dangerous word in mathematics.}
+        {Eric Temple Bell}
+        \newpage
+
+    \chapter{Trigonometry}%
+        \label{chap:trigonometry}
+        \qq{Mathematics are the result of mysterious powers which no one understands, and which the unconscious recognition of beauty must play an important part. Out of an infinity of designs, a mathematician chooses one pattern for beauty’s sake and pulls it down to earth.}
+        {Marston Morse}
+        \newpage
+
+    \chapter{Logarithms}%
+        \label{chap:logarithms}
+        \qq{Somehow it’s okay for people to chuckle about not being good at math. Yet, if I said “I never learned to read,” they’d say I was an illiterate dolt.}
+        {Neil deGrasse Tyson}
+        \newpage
+
+    \chapter{Calculus}%
+        \label{chap:calculus}
+        \qq{As far as the laws of mathematics refer to reality, they are not certain, and as far as they are certain, they do not refer to reality.}{Albert Einstein}
+        \newpage
+
+    \chapter{Complex Numbers}%
+        \label{chap:complex_numbers}
+        \qq{Mathematics has beauty and romance. It’s not a boring place to be, the mathematical world. It’s an extraordinary place; it’s worth spending time there.}
+        {Marcus du Sautoy}
+        \newpage
+
+    \chapter{Linear Algebra}%
+        \label{chap:linear_algebra}
+        \qq{The study of mathematics, like the Nile, begins in minuteness but ends in magnificence.}
+        {Charles Caleb Colton}
+        \newpage
+
+    \chapter{Differential Equations}%
+        \label{chap:differential_equations}
+        \qq{Mathematics is not a careful march down a well-cleared highway, but a journey into a strange wilderness, where the explorers often get lost. Rigor should be a signal to the historians that the maps have been made, and the real explorers have gone elsewhere.}
+        {W.\ S.\ Anglin}
+        \newpage
+
+    \chapter{Laplace Transforms}%
+        \label{chap:laplace_transforms}
+        \qq{One of the endlessly alluring aspects of mathematics is that its thorniest paradoxes have a way of blooming into beautiful theories.}
+        {Philip J.\ Davis}
+        \newpage
+
+    \chapter{Fourier Series}%
+        \label{chap:fourier_series}
+        \qq{Pure mathematics is the world’s best game. It is more absorbing than chess, more of a gamble than poker, and lasts longer than Monopoly. It’s free. It can be played anywhere --- Archimedes did it in a bathtub.}
+        {Richard J.\ Trudeau}
+        \newpage
+
+    \chapter{Boolean Algebra}%
+        \label{chap:boolean_algebra}
+        \qq{It’s fine to work on any problem, so long as it generates interesting mathematics along the way --- even if you don’t solve it at the end of the day.}
+        {Andrew Wiles}
+        \newpage
+
+    \chapter{Numbers in Different Bases}%
+        \label{chap:numbers_in_different_bases}
+        \qq{Mathematics consists of proving the most obvious thing in the least obvious way.}
+        {George Pólya}
+        \newpage
+
+    \chapter{Hyperbolic Trigonometry}%
+        \label{chap:hyperbolic_trigonometry}
+        \qq{There are two ways to do great mathematics. The first is to be smarter than everybody else. The second way is to be stupider than everybody else --- but persistent.}
+       {Raoul Bott}
+        \newpage
+
+    \chapter{Statistics}%
+        \label{chap:statistics}
+        \qq{Mathematics is a hard thing to love. It has the unfortunate habit, like a rude dog, of turning its most unfavorable side towards you when you first make contact with it.}
+        {David Whiteland}
+        \newpage
+
+\end{document}
+
+%%% Local Variables:
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-enigine: pdflatex
+%%% TeX-command-extra-options: "--shell-escape"
+%%% End:

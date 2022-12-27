@@ -1,0 +1,26 @@
+\documentclass[tikz]{standalone}
+
+\begin{document}
+\begin{tikzpicture}
+    \coordinate (A) at (0,3);
+    \coordinate (B) at (0,2);
+    \coordinate (C) at (0,1);
+
+    \coordinate (D) at (4,3);
+    \coordinate (E) at (4,2);
+    \coordinate (F) at (4,1);
+
+    \draw ($(B) + (0,2)$) node[above]{Domain}
+        ($(E) + (0,2)$) node[above]{Range};
+
+    \foreach \x in {A,B,C,...,F}{%
+        \draw (\x) node{$\x$};
+    };
+    \draw[thick] (B) circle (1 and 2)
+        (E) circle (1 and 2);
+
+    \foreach \x/\y in {A/D, B/D, C/F}{%
+        \draw[thick,->] ($(\x) + (0.25,0)$) -- ($(\y) + (-0.25,0)$);
+    }
+\end{tikzpicture}
+\end{document}

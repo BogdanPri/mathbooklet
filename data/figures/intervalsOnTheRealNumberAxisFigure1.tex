@@ -1,0 +1,16 @@
+\documentclass[tikz]{standalone}
+
+\begin{document}
+\begin{tikzpicture}
+    \draw[thick, <->] (-4.5,0) node[left]{$-\infty$} -- (4.5,0) node[right]{$\infty$};
+    \foreach \x in {-4,-3,-2,...,4}{%
+        \draw[semithick] ($(\x,0) + (0,3.5pt)$) -- ($(\x,0) + (0,-3.5pt)$) node[below]{$\x$};
+    };
+    \draw[very thick,blue] (3,0) -- (1,0) node[midway, above,black,yshift=2pt]{$(1,3)$};
+    \draw[very thick,red] (-4,0) -- (-2,0) node[midway, above,black,yshift=2pt]{$[-4,-2]$};
+    \draw[red, fill=red] (-4,0) circle[radius=3.5pt]
+        (-2,0) circle[radius=3.5pt];
+    \draw[blue, fill=white,very thick] (1,0) circle[radius=3.5pt]
+        (3,0) circle[radius=3.5pt];
+\end{tikzpicture}
+\end{document}
